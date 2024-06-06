@@ -1,28 +1,21 @@
-# calculator.py
-
 import streamlit as st
 
-# Define the calculator function
-def calculate(num1, num2, operation):
-    if operation == "+":
-        return num1 + num2
-    elif operation == "-":
-        return num1 - num2
-    elif operation == "*":
-        return num1 * num2
-    elif operation == "/":
-        return num1 / num2
+# Title of the app
+st.title("YouTube API Token and Channel ID Entry")
 
-# Set the title and header
-st.title("Calculator")
-st.header("Perform simple calculations here:")
+# Section for entering API token
+st.header("Enter API Token")
+api_token = st.text_input("API Token", type="password")
 
-# Get user input
-num1 = st.number_input("Enter the first number:")
-num2 = st.number_input("Enter the second number:")
-operation = st.selectbox("Select operation:", ["+", "-", "*", "/"])
+# Section for entering YouTube channel ID
+st.header("Enter YouTube Channel ID")
+channel_id = st.text_input("YouTube Channel ID")
 
-# Perform the calculation and display the result
-if st.button("Calculate"):
-    result = calculate(num1, num2, operation)
-    st.write("Result:", result)
+# Display the entered values
+if st.button("Submit"):
+    if api_token and channel_id:
+        st.success(f"API Token: {api_token}")
+        st.success(f"YouTube Channel ID: {channel_id}")
+    else:
+        st.error("Please enter both the API Token and YouTube Channel ID.")
+
