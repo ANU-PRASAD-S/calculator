@@ -30,7 +30,7 @@ st.title("YouTube Channel Data Retriever")
 
 # Section for entering API token
 st.header("Enter API Token")
-api_token = st.text_input("API Token", type="password")
+api_key = st.text_input("API Token", type="password")
 
 # Section for entering YouTube channel ID
 st.header("Enter YouTube Channel ID")
@@ -38,7 +38,7 @@ channel_id = st.text_input("YouTube Channel ID")
 
 # Button to submit the form and fetch data
 if st.button("Submit"):
-  if api_token and channel_id:
+  if api_key and channel_id:
     try:
       channel_response, video_response = get_youtube_channel_data(api_key, channel_id)
       st.success("Successfully retrieved channel data!")
