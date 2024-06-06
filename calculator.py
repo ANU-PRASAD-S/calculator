@@ -25,6 +25,16 @@ def get_youtube_channel_data(api_key, channel_id):
   else:
       return channel_response, None
 
+# Function to get details of a specific video
+def get_video_details(api_key, video_id):
+  youtube = build('youtube', 'v3', developerKey=api_key)
+  video_request = youtube.videos().list(
+      part="snippet,statistics",
+      id=video_id
+  )
+  video_response = video_request.execute()
+  return video_response
+
 # Title of the app
 st.title("YouTube Channel Data Retriever")
 
@@ -55,9 +65,29 @@ if st.button("Submit"):
           for item in video_response['items']:
               video_id = item['snippet']['resourceId']['videoId']
               video_title = item['snippet']['title']
-              # Make another API request to get specific video details (optional)
-              # ... (code to retrieve play count, likes, comments using video_id)
-              st.write(f"- {video_title}")  # Display only video title for now
+
+              # Get detailed video statistics
+              video_details_response = get_video_details(api_key, video_id)
+              if 'items' in video_details_response and len(video_details_response['items']) > 0:
+                  video_details = video_details_response['items'][0]
+                  view_count = video_details['statistics'].get('viewCount', 0)
+                  like_count = video_details['statistics'].get('likeCount', 0)
+                  comment_count = video_details['statistics'].get('commentCount', 0)
+                  
+                  # Create a dictionary to store video data
+                  video_data = {
+                      'video_id': video_id,
+                      'video_title': video_title,
+                      # ... (add other video info from previous code)
+                      'view_count': view_count,
+                      'like_count': like_count,
+                      'comment_count': comment_count
+                  }
+                  
+                  # Display video data (including play count, likes, comments)
+                  st.write(f"- {video_title} (Views: {view_count}, Likes: {like_count}, Comments: {comment_count})")
+              else:
+                  st.write(f"- {video_title} (Details unavailable)")
     except Exception as e:
       st.error(f"An error occurred: {e}")
   else:
