@@ -14,10 +14,10 @@ def get_youtube_channel_data(api_key, channel_id):
 # Title of the app
 st.title("YouTube Channel Data Retriever")
 
-# Section for entering API token
-st.header("Enter API Token")
-api_token = st.text_input("API Token")
-#api_key = "api_token"
+# Section for entering API key
+st.header("Enter API key")
+api_key = st.text_input("API key")
+#api_key = "api_key"
 
 # Section for entering YouTube channel ID
 st.header("Enter YouTube Channel ID")
@@ -25,7 +25,7 @@ channel_id = st.text_input("YouTube Channel ID")
 
 # Button to submit the form and fetch data
 if st.button("Submit"):
-  if api_token and channel_id:
+  if api_key and channel_id:
     try:
       channel_data = get_youtube_channel_data(api_key, channel_id)
       st.success("Successfully retrieved channel data!")
@@ -47,5 +47,5 @@ if st.button("Submit"):
     except Exception as e:
       st.error(f"An error occurred: {e}")
   else:
-    st.error("Please enter both the API Token and YouTube Channel ID.")
+    st.error("Please enter both the API key and YouTube Channel ID.")
 
