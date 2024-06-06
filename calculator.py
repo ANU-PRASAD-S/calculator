@@ -95,3 +95,14 @@ if st.button("Submit"):
                   side_section.write(f"- {video_title} (Views: {view_count}, Likes: {like_count}, Comments: {comment_count})")
               else:
                   side_section.write(f"- {video_title} (Details
+
+                        # Display remaining channel information in the main content (text format)
+      with main_content:
+          if 'items' in channel_response and len(channel_response['items']) > 0:
+              channel_info = channel_response['items'][0]
+              st.subheader("Channel Information")
+              st.write(f"Description: {channel_info['snippet']['description']}")
+              st.write(f"Subscribers: {channel_info['statistics']['subscriberCount']}")
+              # Add similar lines for other desired channel statistics
+
+
