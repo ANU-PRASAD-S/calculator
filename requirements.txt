@@ -1,2 +1,2 @@
-streamlit
 google-api-python-client
+streamlit
