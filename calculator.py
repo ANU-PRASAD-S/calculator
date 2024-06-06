@@ -53,15 +53,22 @@ if st.button("Submit"):
       channel_response, video_response = get_youtube_channel_data(api_key, channel_id)
       st.success("Successfully retrieved channel data!")
 
-      # Display channel information (unchanged)
-      if 'items' in channel_response and len(channel_response['items']) > 0:
-          channel_info = channel_response['items'][0]
-          st.subheader("Channel Information")
-          # ... (rest of your channel info display code)
+      # Create a container for the main content (center section)
+      main_content = st.container()
 
-      # Display video information (if available)
+      # Create a container for the side section
+      side_section = st.sidebar
+
+      # Display channel information in the main content (unchanged)
+      with main_content:
+          if 'items' in channel_response and len(channel_response['items']) > 0:
+              channel_info = channel_response['items'][0]
+              st.subheader("Channel Information")
+              # ... (rest of your channel info display code)
+
+      # Display video information in the side section (if available)
       if video_response:
-          st.subheader("Recent Videos")
+          side_section.subheader("Recent Videos")
           for item in video_response['items']:
               video_id = item['snippet']['resourceId']['videoId']
               video_title = item['snippet']['title']
@@ -85,10 +92,6 @@ if st.button("Submit"):
                   }
                   
                   # Display video data (including play count, likes, comments)
-                  st.write(f"- {video_title} (Views: {view_count}, Likes: {like_count}, Comments: {comment_count})")
+                  side_section.write(f"- {video_title} (Views: {view_count}, Likes: {like_count}, Comments: {comment_count})")
               else:
-                  st.write(f"- {video_title} (Details unavailable)")
-    except Exception as e:
-      st.error(f"An error occurred: {e}")
-  else:
-    st.error("Please enter both the API Token and YouTube Channel ID.")
+                  side_section.write(f"- {video_title} (Details
