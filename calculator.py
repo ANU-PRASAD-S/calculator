@@ -16,7 +16,7 @@ st.title("YouTube Channel Data Retriever")
 
 # Section for entering API token
 st.header("Enter API Token")
-api_token = st.text_input("API Token", type="password")
+api_token = st.text_input("API Token")
 api_key = "api_token"
 
 # Section for entering YouTube channel ID
